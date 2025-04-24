@@ -4,6 +4,8 @@ import com.example.board.entity.Board;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @ToString
 @AllArgsConstructor
@@ -16,6 +18,9 @@ public class BoardDto {
     private String id; // 작성자
     private String title; // 제목
     private String content; // 내용
+    private LocalDateTime createDate; // 작성일
+    private LocalDateTime modifieDate; // 수정일
+    
 
 
 //    public BoardDto(String id, String title, String content) {

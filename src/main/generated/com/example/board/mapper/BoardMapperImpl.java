@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-23T23:01:15+0900",
+    date = "2025-04-24T13:38:04+0900",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
@@ -27,6 +27,8 @@ public class BoardMapperImpl implements BoardMapper {
         boardDto.setId( board.getId() );
         boardDto.setTitle( board.getTitle() );
         boardDto.setContent( board.getContent() );
+        boardDto.setCreateDate( board.getCreateDate() );
+        boardDto.setModifieDate( board.getModifieDate() );
 
         return boardDto;
     }

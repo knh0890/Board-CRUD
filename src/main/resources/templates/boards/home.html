@@ -34,6 +34,11 @@
             thead th {
                 background-color: #f1f3f5;
                 color: #555;
+                text-align: center;
+            }
+
+            tbody th, td {
+                text-align: center;
             }
 
             .btn-success {
@@ -60,16 +65,18 @@
                     <th scope="col">제목</th>
                     <th scope="col">작성자</th>
                     <th scope="col">작성일</th>
+                    <th scope="col">수정일</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="board : ${lists}">
                     <th scope="row" th:text="${board.idx}">글 번호</th>
-                    <td>
+                    <td style="text-align: left;">
                         <a th:text="${board.title}" th:href="@{/boards/{boardIdx}(boardIdx=${board.idx})}">글 제목</a>
                     </td>
                     <td th:text="${board.id}">작성자</td>
-                    <td>25.04.11</td> <!-- 등록일이 있다면 th:text로 바꿔도 OK -->
+                    <td th:text="${#temporals.format(board.createDate, 'yy-MM-dd HH:mm:ss')}">작성일</td>
+                    <td><span th:if="${board.modifieDate != null}" th:text="${#temporals.format(board.modifieDate, 'yy-MM-dd HH:mm:ss')}">수정일</span></td>
                 </tr>
                 </tbody>
             </table>

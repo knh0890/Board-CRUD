@@ -1,5 +1,6 @@
 package com.example.board.entity;
 
+import com.example.board.time.Time;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import lombok.*;
 @Getter
 @ToString
 @Builder(toBuilder = true)
-public class Board {
+public class Board extends Time {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 1,2,3, 자동 생성

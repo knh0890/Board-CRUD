@@ -82,10 +82,10 @@
                     <td>900</td>
                 </tr>
                 <tr>
-                    <th scope="row">등록일</th>
-                    <td>25.04.11</td>
+                    <th scope="row">작성일</th>
+                    <td th:text="${#temporals.format(board.createDate, 'yy-MM-dd HH:mm:ss')}">작성일</td>
                     <th scope="row">수정일</th>
-                    <td>25.04.13</td> <!-- 필요 없다면 이 칸을 비워도 됨 -->
+                    <td><span th:if="${board.modifieDate != null}" th:text="${#temporals.format(board.modifieDate, 'yy-MM-dd HH:mm:ss')}">수정일</span></td>
                 </tr>
                 <tr>
                     <th scope="row">내용</th>
@@ -93,11 +93,9 @@
                 </tr>
                 </tbody>
             </table>
-
             <div class="table-footer">
                 <a class="btn btn-success" th:href="@{/boards/edit/{boardIdx}(boardIdx=${board.idx})}">글 수정</a>
                 <button type="submit" class="btn btn-success">글 삭제</button>
-    <!--            <a class="btn btn-success" th:href="@{/boards/delete/{boardIdx}(boardIdx=${board.idx})}">글 삭제</a>-->
                 <a class="btn btn-success" href="/">글 목록</a>
             </div>
         </form>
