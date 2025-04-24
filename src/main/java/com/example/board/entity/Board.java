@@ -1,28 +1,30 @@
 package com.example.board.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @ToString
+@Builder(toBuilder = true)
 public class Board {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 1,2,3, 자동 생성
     private Long idx; // 글 인덱스
-
-    @Column
+    @Column(nullable = false)
     private String id; // 작성자
-    @Column
+    @Column(nullable = false)
     private String title; // 제목
-    @Column
+    @Column(nullable = false)
     private String content; // 내용
-    @Column
-    private int count; // 조회수
+
+//    public Board(String id, String title, String content) {
+//        this.id = id;
+//        this.title = title;
+//        this.content = content;
+//    }
 
 }

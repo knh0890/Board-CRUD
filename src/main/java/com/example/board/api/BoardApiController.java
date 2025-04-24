@@ -1,15 +1,17 @@
 package com.example.board.api;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/api")
 @RestController
-public class BoardController {
+@Slf4j
+public class BoardApiController {
 
-    @GetMapping("/board")
+    @PostMapping("/board")
     public String hello(){
-        return "hello world!";
+        return "new";
     }
 }

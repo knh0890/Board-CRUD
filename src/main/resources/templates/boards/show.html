@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>글 상세보기</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f7f9fc;
+                margin: 40px;
+                color: #333;
+            }
+
+            table {
+                width: 80%;
+                margin: 0 auto;
+                border-collapse: collapse;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            colgroup col {
+                text-align: center;
+            }
+
+            th, td {
+                padding: 16px;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            th {
+                background-color: #f1f3f5;
+                text-align: left;
+                font-weight: 600;
+                color: #555;
+            }
+
+            td[colspan="3"], td[colspan="2"] {
+                background-color: #fafafa;
+            }
+
+            tr:last-child td {
+                border-bottom: none;
+            }
+
+            h1 {
+                text-align: center;
+                color: #2c3e50;
+                margin-bottom: 20px;
+            }
+
+            .table-footer {
+                width: 80%;
+                margin: 10px auto 0 auto; /* 위는 10px, 좌우는 auto, 아래는 0 */
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>글 상세보기</h1>
+        <form th:action="@{/boards/delete}" method="post">
+            <input type="hidden" th:value="${board.idx}" name="idx">
+            <table>
+                <colgroup>
+                    <col style="width:20%;" />
+                    <col style="width:40%;" />
+                    <col style="width:20%;" />
+                    <col style="width:20%;" />
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row">제목</th>
+                    <td colspan="3" th:text="${board.title}">제목 내용</td>
+                </tr>
+                <tr>
+                    <th scope="row">작성자</th>
+                    <td th:text="${board.id}">작성자명</td>
+                    <th scope="row">조회</th>
+                    <td>900</td>
+                </tr>
+                <tr>
+                    <th scope="row">등록일</th>
+                    <td>25.04.11</td>
+                    <th scope="row">수정일</th>
+                    <td>25.04.13</td> <!-- 필요 없다면 이 칸을 비워도 됨 -->
+                </tr>
+                <tr>
+                    <th scope="row">내용</th>
+                    <td colspan="3" th:text="${board.content}">여기에 본문 내용이 들어갑니다.</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="table-footer">
+                <a class="btn btn-success" th:href="@{/boards/edit/{boardIdx}(boardIdx=${board.idx})}">글 수정</a>
+                <button type="submit" class="btn btn-success">글 삭제</button>
+    <!--            <a class="btn btn-success" th:href="@{/boards/delete/{boardIdx}(boardIdx=${board.idx})}">글 삭제</a>-->
+                <a class="btn btn-success" href="/">글 목록</a>
+            </div>
+        </form>
+    </body>
+</html>
+
