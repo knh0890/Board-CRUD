@@ -6,11 +6,17 @@ import com.example.board.repository.BoardRepository;
 import com.example.board.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
@@ -21,11 +27,27 @@ public class BoardController {
 
     // 게시판 리스트
     @GetMapping("/")
-    public String main(Model model){
-        model.addAttribute("lists", boardService.boardList());
+    public String main(Model model,
+                       @RequestParam(defaultValue = "1") int page,
+                       @PageableDefault(size = 5, sort = "idx", direction = Sort.Direction.DESC)Pageable pageable){
+
+        // page가 1부터 오기 때문에 pageable에 1을 빼서 넘겨줍니다.
+        // 페이지 번호가 1 미만이면 1로 처리
+        if (page < 1) {
+            page = 1;
+        }
+        Page<BoardDto> boardPage = boardService.boardList(PageRequest.of(page - 1, pageable.getPageSize(), pageable.getSort()));
+        model.addAttribute("lists", boardPage.getContent()); // 현재 페이지 데이터
+        model.addAttribute("page", boardPage); // 페이지에 대한 전체 정보
 
         return "boards/home";
     }
+//    @GetMapping("/")
+//    public String main(Model model){
+//        model.addAttribute("lists", boardService.boardList());
+//
+//        return "boards/home";
+//    }
 
     // 글 작성 페이지 이동
     @GetMapping("/boards/new")
