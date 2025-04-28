@@ -26,8 +26,29 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     // 게시판 리스트
-    public Page<BoardDto> boardList(Pageable pageable){
-        Page<Board> boardPage = boardRepository.findAll(pageable);
+    public Page<BoardDto> boardList(Pageable pageable, String searchField, String searchWord){
+
+        Page<Board> boardPage;
+
+        // 검색필드 or 검색단어가 없거나 비워져있다면
+        if (searchField == null || searchWord == null || searchWord.isEmpty()) {
+            boardPage = boardRepository.findAll(pageable);
+        } else {
+            switch (searchField) {
+                case "title":
+                    boardPage = boardRepository.findByTitleContaining(searchWord, pageable);
+                    break;
+                case "content":
+                    boardPage = boardRepository.findByContentContaining(searchWord, pageable);
+                    break;
+                case "id":
+                    boardPage = boardRepository.findByIdContaining(searchWord, pageable);
+                    break;
+                default:
+                    boardPage = boardRepository.findAll(pageable);
+            }
+        }
+
         List<BoardDto> boardDtoList = boardMapper.toDtoList(boardPage.getContent());
 
         return new PageImpl<>(boardDtoList, pageable, boardPage.getTotalElements());
@@ -74,5 +95,12 @@ public class BoardService {
         // dto -> entity
         Board board = boardMapper.toEntity(boardDto);
         boardRepository.deleteById(board.getIdx());
+    }
+
+    @Transactional
+    // 조회수
+    public void viewCount(Long idx){
+        boardRepository.viewCount(idx);
+
     }
 }

@@ -78,8 +78,8 @@
                 <tr>
                     <th scope="row">작성자</th>
                     <td th:text="${board.id}">작성자명</td>
-                    <th scope="row">조회</th>
-                    <td>900</td>
+                    <th scope="row">조회수</th>
+                    <td th:text="${board.viewCount}">조회</td>
                 </tr>
                 <tr>
                     <th scope="row">작성일</th>

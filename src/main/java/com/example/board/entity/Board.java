@@ -21,11 +21,6 @@ public class Board extends Time {
     private String title; // 제목
     @Column(nullable = false)
     private String content; // 내용
-
-//    public Board(String id, String title, String content) {
-//        this.id = id;
-//        this.title = title;
-//        this.content = content;
-//    }
-
+    @Column(nullable = false)
+    private int viewCount; // 조회수
 }

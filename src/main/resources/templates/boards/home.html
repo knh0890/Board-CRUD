@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>게시판</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -87,6 +88,26 @@
 <body>
 <div class="container">
     <h1>게시판 만들기 프로젝트</h1>
+    <!-- 검색부분 -->
+    <div class="row mb-4">
+        <div class="col d-flex justify-content-end">
+            <form class="d-flex gap-2" style="max-width: 400px; width: 100%;">
+                <!-- 검색 필드 선택 -->
+                <select name="searchField" class="form-select" style="font-size: 14px;">
+                    <option value="title" th:selected="${searchField == 'title'}">제목</option>
+                    <option value="content" th:selected="${searchField == 'content'}">내용</option>
+                    <option value="id" th:selected="${searchField == 'id'}">작성자</option>
+                </select>
+                <!-- 검색어 입력 필드 -->
+                <input type="text" name="searchWord" class="form-control" placeholder="검색어" style="width: 180px; font-size: 14px;"/>
+                <!-- 검색 버튼 -->
+                <button class="btn btn-outline-secondary" type="submit" style="background-color: #28a745; color: white; border: none;">
+                    <i class="bi bi-search" style='font-size: 16px'></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
     <table class="table table-hover">
         <thead>
         <tr>
@@ -95,6 +116,7 @@
             <th scope="col">작성자</th>
             <th scope="col">작성일</th>
             <th scope="col">수정일</th>
+            <th scope="col">조회수</th>
         </tr>
         </thead>
         <tbody>
@@ -111,20 +133,28 @@
             <td th:text="${board.id}">작성자</td>
             <td th:text="${#temporals.format(board.createDate, 'yy-MM-dd HH:mm:ss')}">작성일</td>
             <td><span th:if="${board.modifieDate != null}" th:text="${#temporals.format(board.modifieDate, 'yy-MM-dd HH:mm:ss')}">수정일</span></td>
+            <td th:text="${board.viewCount}">조회수</td>
         </tr>
         </tbody>
     </table>
     <div class="d-flex justify-content-end mt-3">
-        <a class="btn btn-success" href="/boards/new">글 작성</a>
+        <a class="btn btn-success ms-2" href="/">글 목록</a>
+        <a class="btn btn-success ms-2" href="/boards/new">글 작성</a>
     </div>
     <!-- Pagination 게시글이 없을 때는 페이징 부분이 보이지 않음-->
     <div th:if="${!lists.isEmpty()}">
         <nav aria-label="Page navigation" class="mt-4">
             <ul class="pagination justify-content-center">
+                <!-- 젤 처음 -->
+                <li class="page-item" th:classappend="${page.first} ? 'disabled'">
+                    <a class="page-link" th:href="@{/(page=${page.first})}" aria-label="First">
+                        <span aria-hidden="true"><i class="bi bi-chevron-double-left"></i></span>
+                    </a>
+                </li>
                 <!-- 이전 페이지 -->
                 <li class="page-item" th:classappend="${page.first} ? 'disabled'">
                     <a class="page-link" th:href="@{/(page=${page.number})}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+                        <span aria-hidden="true"><i class="bi bi-chevron-compact-left"></i></span>
                     </a>
                 </li>
 

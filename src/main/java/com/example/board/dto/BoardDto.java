@@ -20,12 +20,5 @@ public class BoardDto {
     private String content; // 내용
     private LocalDateTime createDate; // 작성일
     private LocalDateTime modifieDate; // 수정일
-    
-
-
-//    public BoardDto(String id, String title, String content) {
-//        this.id = id;
-//        this.title = title;
-//        this.content = content;
-//    }
+    private int viewCount; // 조회수
 }

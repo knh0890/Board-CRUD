@@ -28,6 +28,8 @@ public class BoardController {
     // 게시판 리스트
     @GetMapping("/")
     public String main(Model model,
+                       @RequestParam(required = false) String searchField, // @RequestParam(required = false): 선택적이 되며, 파라미터가 없으면 null이 전달
+                       @RequestParam(required = false) String searchWord,
                        @RequestParam(defaultValue = "1") int page,
                        @PageableDefault(size = 5, sort = "idx", direction = Sort.Direction.DESC)Pageable pageable){
 
@@ -36,7 +38,7 @@ public class BoardController {
         if (page < 1) {
             page = 1;
         }
-        Page<BoardDto> boardPage = boardService.boardList(PageRequest.of(page - 1, pageable.getPageSize(), pageable.getSort()));
+        Page<BoardDto> boardPage = boardService.boardList(PageRequest.of(page - 1, pageable.getPageSize(), pageable.getSort()), searchField, searchWord);
         model.addAttribute("lists", boardPage.getContent()); // 현재 페이지 데이터
         model.addAttribute("page", boardPage); // 페이지에 대한 전체 정보
 
@@ -72,6 +74,9 @@ public class BoardController {
     // 글 상세보기
     @GetMapping("/boards/{idx}")
     public String show(@PathVariable Long idx, Model model){
+        // 글 클릭 시 조회수 증가
+        boardService.viewCount(idx);
+
         model.addAttribute("board", boardService.show(idx));
 
         return "boards/show";
