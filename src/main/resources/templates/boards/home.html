@@ -1,188 +1,149 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>게시판</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f7f9fc;
-            margin: 40px;
-            color: #333;
-        }
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>게시판</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f7f9fc;
+                margin: 40px;
+                color: #333;
+            }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-        }
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+                background-color: #fff;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #2c3e50;
-        }
+            h1 {
+                text-align: center;
+                margin-bottom: 30px;
+                color: #2c3e50;
+            }
 
-        table {
-            background-color: #fff;
-        }
+            table {
+                background-color: #fff;
+            }
 
-        thead th {
-            background-color: #f1f3f5;
-            color: #555;
-            text-align: center;
-        }
+            thead th {
+                background-color: #f1f3f5;
+                color: #555;
+                text-align: center;
+            }
 
-        tbody th, td {
-            text-align: center;
-        }
+            tbody th, td {
+                text-align: center;
+            }
 
-        .btn-success {
-            margin-top: 20px;
-            float: right;
-        }
+            .btn-success {
+                margin-top: 20px;
+                float: right;
+            }
 
-        a {
-            text-decoration: none;
-        }
+            a {
+                text-decoration: none;
+            }
 
-        a:hover {
-            text-decoration: underline;
-        }
+            a:hover {
+                text-decoration: underline;
+            }
 
-        /* 페이징 스타일 */
-        .pagination .page-link {
-            border-radius: 5px;
-            padding: 8px 12px;
-            background-color: #28a745; /* 글 작성 버튼과 동일한 색상 */
-            color: white;
-            border: 1px solid #28a745; /* 글 작성 버튼과 동일한 색상 */
-        }
+            /* 페이징 스타일 */
+            .pagination .page-link {
+                border-radius: 5px;
+                padding: 8px 12px;
+                background-color: #28a745; /* 글 작성 버튼과 동일한 색상 */
+                color: white;
+                border: 1px solid #28a745; /* 글 작성 버튼과 동일한 색상 */
+            }
 
-        .pagination .page-link:hover {
-            background-color: #218838; /* hover 시 색상 */
-        }
+            .pagination .page-link:hover {
+                background-color: #218838; /* hover 시 색상 */
+            }
 
-        .pagination .page-item.disabled .page-link {
-            background-color: #d6d8db;
-            border-color: #d6d8db;
-            color: #6c757d;
-        }
+            .pagination .page-item.disabled .page-link {
+                background-color: #d6d8db;
+                border-color: #d6d8db;
+                color: #6c757d;
+            }
 
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-        }
+            .pagination {
+                display: flex;
+                justify-content: center;
+                margin-top: 30px;
+            }
 
-        .pagination .page-item {
-            margin: 0 5px;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>게시판 만들기 프로젝트</h1>
-    <!-- 검색부분 -->
-    <div class="row mb-4">
-        <div class="col d-flex justify-content-end">
-            <form class="d-flex gap-2" style="max-width: 400px; width: 100%;">
-                <!-- 검색 필드 선택 -->
-                <select name="searchField" class="form-select" style="font-size: 14px;">
-                    <option value="title" th:selected="${searchField == 'title'}">제목</option>
-                    <option value="content" th:selected="${searchField == 'content'}">내용</option>
-                    <option value="id" th:selected="${searchField == 'id'}">작성자</option>
-                </select>
-                <!-- 검색어 입력 필드 -->
-                <input type="text" name="searchWord" class="form-control" placeholder="검색어" style="width: 180px; font-size: 14px;"/>
-                <!-- 검색 버튼 -->
-                <button class="btn btn-outline-secondary" type="submit" style="background-color: #28a745; color: white; border: none;">
-                    <i class="bi bi-search" style='font-size: 16px'></i>
-                </button>
-            </form>
+            .pagination .page-item {
+                margin: 0 5px;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <h1>게시판 만들기 프로젝트</h1>
+        <!-- 검색부분 -->
+        <div class="row mb-4">
+            <div class="col d-flex justify-content-end">
+                <form class="d-flex gap-2" style="max-width: 400px; width: 100%;">
+                    <!-- 검색 필드 선택 -->
+                    <select name="searchField" class="form-select" style="font-size: 14px;">
+                        <option value="title" th:selected="${searchField == 'title'}">제목</option>
+                        <option value="content" th:selected="${searchField == 'content'}">내용</option>
+                        <option value="id" th:selected="${searchField == 'id'}">작성자</option>
+                    </select>
+                    <!-- 검색어 입력 필드 -->
+                    <input type="text" name="searchWord" class="form-control" placeholder="검색어" style="width: 180px; font-size: 14px;"/>
+                    <!-- 검색 버튼 -->
+                    <button class="btn btn-outline-secondary" type="submit" style="background-color: #28a745; color: white; border: none;">
+                        <i class="bi bi-search" style='font-size: 16px'></i>
+                    </button>
+                </form>
+            </div>
         </div>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">글 번호</th>
+                <th scope="col">제목</th>
+                <th scope="col">작성자</th>
+                <th scope="col">작성일</th>
+                <th scope="col">수정일</th>
+                <th scope="col">조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${lists.isEmpty()}">
+                <td class="text-center" colspan="5">
+                    등록된 게시글이 없습니다.
+                </td>
+            </tr>
+            <tr th:each="board, iterStat : ${lists}">
+                <th scope="row" th:text="${page.totalElements - (page.number * page.size) - iterStat.index}">글 번호</th>
+                <td style="text-align: left;">
+                    <a th:text="${board.title}" th:href="@{/boards/{boardIdx}(boardIdx=${board.idx})}">글 제목</a>
+                </td>
+                <td th:text="${board.id}">작성자</td>
+                <td th:text="${#temporals.format(board.createDate, 'yy-MM-dd HH:mm:ss')}">작성일</td>
+                <td><span th:if="${board.modifieDate != null}" th:text="${#temporals.format(board.modifieDate, 'yy-MM-dd HH:mm:ss')}">수정일</span></td>
+                <td th:text="${board.viewCount}">조회수</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end mt-3">
+            <a class="btn btn-success ms-2" href="/">글 목록</a>
+            <a class="btn btn-success ms-2" href="/boards/new">글 작성</a>
+        </div>
+        <!-- 페이징 부분 -->
+        <div th:replace="fragments/pagination :: pagination(${lists}, ${page})"></div>
     </div>
-
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">글 번호</th>
-            <th scope="col">제목</th>
-            <th scope="col">작성자</th>
-            <th scope="col">작성일</th>
-            <th scope="col">수정일</th>
-            <th scope="col">조회수</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${lists.isEmpty()}">
-            <td class="text-center" colspan="5">
-                등록된 게시글이 없습니다.
-            </td>
-        </tr>
-        <tr th:each="board, iterStat : ${lists}">
-            <th scope="row" th:text="${page.totalElements - (page.number * page.size) - iterStat.index}">글 번호</th>
-            <td style="text-align: left;">
-                <a th:text="${board.title}" th:href="@{/boards/{boardIdx}(boardIdx=${board.idx})}">글 제목</a>
-            </td>
-            <td th:text="${board.id}">작성자</td>
-            <td th:text="${#temporals.format(board.createDate, 'yy-MM-dd HH:mm:ss')}">작성일</td>
-            <td><span th:if="${board.modifieDate != null}" th:text="${#temporals.format(board.modifieDate, 'yy-MM-dd HH:mm:ss')}">수정일</span></td>
-            <td th:text="${board.viewCount}">조회수</td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="d-flex justify-content-end mt-3">
-        <a class="btn btn-success ms-2" href="/">글 목록</a>
-        <a class="btn btn-success ms-2" href="/boards/new">글 작성</a>
-    </div>
-    <!-- Pagination 게시글이 없을 때는 페이징 부분이 보이지 않음-->
-    <div th:if="${!lists.isEmpty()}">
-        <nav aria-label="Page navigation" class="mt-4">
-            <ul class="pagination justify-content-center">
-                <!-- 젤 처음 -->
-                <li class="page-item" th:classappend="${page.first} ? 'disabled'">
-                    <a class="page-link" th:href="@{/(page=${page.first})}" aria-label="First">
-                        <span aria-hidden="true"><i class="bi bi-chevron-double-left"></i></span>
-                    </a>
-                </li>
-                <!-- 이전 페이지 -->
-                <li class="page-item" th:classappend="${page.first} ? 'disabled'">
-                    <a class="page-link" th:href="@{/(page=${page.number})}" aria-label="Previous">
-                        <span aria-hidden="true"><i class="bi bi-chevron-compact-left"></i></span>
-                    </a>
-                </li>
-
-                <!-- 페이지 번호 -->
-<!--                <li class="page-item"-->
-<!--                    th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"-->
-<!--                    th:classappend="${i} == ${page.number} ? 'active'">-->
-<!--                    <a class="page-link" th:href="@{/(page=${i + 1})}" th:text="${i + 1}">1</a>-->
-<!--                </li>-->
-
-                <!-- 페이지 번호 (5페이지씩 묶어서 표시) -->
-                <li class="page-item"
-                    th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
-                    th:if="${i >= (page.number / 5) * 5 && i < ((page.number / 5) + 1) * 5}"
-                    th:classappend="${i} == ${page.number} ? 'active'">
-                    <a class="page-link" th:href="@{/(page=${i + 1})}" th:text="${i + 1}">1</a>
-                </li>
-
-                <!-- 다음 페이지 -->
-                <li class="page-item" th:classappend="${page.last} ? 'disabled'">
-                    <a class="page-link" th:href="@{/(page=${page.number + 2})}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
-</body>
+    </body>
 </html>
 

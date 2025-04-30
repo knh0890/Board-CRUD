@@ -1,0 +1,52 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="pagination(lists, page)">
+    <!-- Pagination 게시글이 없을 때는 페이징 부분이 보이지 않음-->
+    <div th:if="${!lists.isEmpty()}">
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <!-- 젤 처음 -->
+                <li class="page-item" th:classappend="${page.first} ? 'disabled'">
+                    <a class="page-link" th:href="@{/(page=1)}" aria-label="First">
+                        <span aria-hidden="true"><i class="bi bi-chevron-double-left"></i></span>
+                    </a>
+                </li>
+
+                <!-- 이전 페이지 -->
+                <li class="page-item" th:classappend="${page.first} ? 'disabled'">
+                    <a class="page-link" th:href="@{/(page=${page.number})}" aria-label="Previous">
+                        <span aria-hidden="true"><i class="bi bi-chevron-compact-left"></i></span>
+                    </a>
+                </li>
+
+                <!-- 페이지 번호 -->
+<!--                <li class="page-item"-->
+<!--                    th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"-->
+<!--                    th:classappend="${i} == ${page.number} ? 'active'">-->
+<!--                    <a class="page-link" th:href="@{/(page=${i + 1})}" th:text="${i + 1}">1</a>-->
+<!--                </li>-->
+
+                <!-- 페이지 번호 (5페이지씩 묶어서 표시) -->
+                <li class="page-item"
+                    th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+                    th:if="${i >= (page.number / 5) * 5 && i < ((page.number / 5) + 1) * 5}"
+                    th:classappend="${i} == ${page.number} ? 'active'">
+                    <a class="page-link" th:href="@{/(page=${i + 1})}" th:text="${i + 1}">1</a>
+                </li>
+
+                <!-- 다음 페이지 -->
+                <li class="page-item" th:classappend="${page.last} ? 'disabled'">
+                    <a class="page-link" th:href="@{/(page=${page.number + 2})}" aria-label="Next">
+                        <span aria-hidden="true"><i class="bi bi-chevron-compact-right"></i></span>
+                    </a>
+                </li>
+
+                <!-- 젤 마지막 페이지 -->
+                <li class="page-item" th:classappend="${page.last} ? 'disabled'">
+                    <a class="page-link" th:href="@{/(page=${page.totalPages})}" aria-label="Last">
+                        <span aria-hidden="true"><i class="bi bi-chevron-double-right"></i></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
