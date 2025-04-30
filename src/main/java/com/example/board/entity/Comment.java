@@ -10,19 +10,17 @@ import lombok.*;
 @Getter
 @ToString
 @Builder(toBuilder = true)
-public class Board extends Time {
-
+public class Comment extends Time {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 1,2,3, 자동 생성
-    private Long idx; // 글 인덱스
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // // 1,2,3, 자동 생성
+    private  Long idx; // 댓글 인덱스
     @Column(nullable = false)
     private String id; // 작성자
     @Column(nullable = false)
-    private String title; // 제목
-    @Column(nullable = false)
     private String content; // 내용
-    @Column(nullable = false)
-    private int viewCount; // 조회수
+    @ManyToOne
+    @JoinColumn(name = "board_idx", nullable = false)
+    private Board board; // 어떤 게시글의 댓글인지 연결
     // 작성일
     // 수정일
 }
