@@ -1,5 +1,6 @@
 package com.example.board.entity;
 
+import com.example.board.dto.CommentDto;
 import com.example.board.time.Time;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,4 +24,17 @@ public class Comment extends Time {
     private Board board; // 어떤 게시글의 댓글인지 연결
     // 작성일
     // 수정일
+
+    public void patch(CommentDto commentDto) {
+        // 예외 발생
+        if (this.idx != commentDto.getIdx()) {
+            throw new IllegalArgumentException("댓글 수정 실패!");
+        }
+
+        // 객체를 갱신
+        if (commentDto.getContent() != null) {
+            this.content = commentDto.getContent();
+        }
+
+    }
 }

@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
@@ -29,4 +26,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //        return dto;
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
+
+    // 댓글 수정
+    @PatchMapping("/boards/{boardIdx}/comments/{commentIdx}")
+    @ResponseBody
+    public ResponseEntity<CommentDto> commentEdit(@PathVariable Long boardIdx,
+                                                  @PathVariable Long commentIdx,
+                                                  @RequestBody CommentDto commentDto) {
+        commentService.commentUpdate(boardIdx, commentIdx, commentDto);
+
+        return ResponseEntity.ok().build();
+    }
+
 }

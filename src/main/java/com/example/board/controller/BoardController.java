@@ -4,6 +4,7 @@ import com.example.board.dto.BoardDto;
 import com.example.board.entity.Board;
 import com.example.board.repository.BoardRepository;
 import com.example.board.service.BoardService;
+import com.example.board.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,9 @@ public class BoardController {
 
     @Autowired
     private  BoardService boardService;
+
+    @Autowired
+    private CommentService commentService;
 
     // 게시판 리스트
     @GetMapping("/")
@@ -78,6 +82,8 @@ public class BoardController {
         boardService.viewCount(idx);
 
         model.addAttribute("board", boardService.show(idx));
+        // 댓글 보여주기
+        model.addAttribute("comments", commentService.commentShow(idx));
 
         return "boards/show";
     }
