@@ -79,4 +79,14 @@ public class CommentService {
         return dto;
     }
 
+    @Transactional
+    // 댓글 삭제
+    public void commentDelete(Long commentIdx) {
+        Comment target = commentRepository.findById(commentIdx)
+                .orElseThrow(() -> new IllegalArgumentException("댓글 삭제 실패!"));
+
+        commentRepository.delete(target);
+
+
+    }
 }

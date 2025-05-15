@@ -33,9 +33,21 @@ import org.springframework.web.bind.annotation.*;
     public ResponseEntity<CommentDto> commentEdit(@PathVariable Long boardIdx,
                                                   @PathVariable Long commentIdx,
                                                   @RequestBody CommentDto commentDto) {
-        commentService.commentUpdate(boardIdx, commentIdx, commentDto);
 
-        return ResponseEntity.ok().build();
+        CommentDto updatedDto = commentService.commentUpdate(boardIdx, commentIdx, commentDto);
+
+        return ResponseEntity.ok(updatedDto);
     }
+
+    // 댓글 삭제
+    @DeleteMapping("/boards/comments/{commentIdx}")
+    @ResponseBody
+    public ResponseEntity<Void> commentDelete(@PathVariable Long commentIdx) {
+
+        commentService.commentDelete(commentIdx);
+
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

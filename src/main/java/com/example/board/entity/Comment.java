@@ -27,7 +27,7 @@ public class Comment extends Time {
 
     public void patch(CommentDto commentDto) {
         // 예외 발생
-        if (this.idx != commentDto.getIdx()) {
+        if (commentDto.getIdx() == null || !this.idx.equals(commentDto.getIdx())) {
             throw new IllegalArgumentException("댓글 수정 실패!");
         }
 
@@ -35,6 +35,5 @@ public class Comment extends Time {
         if (commentDto.getContent() != null) {
             this.content = commentDto.getContent();
         }
-
     }
 }
