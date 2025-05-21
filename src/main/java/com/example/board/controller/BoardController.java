@@ -48,12 +48,6 @@ public class BoardController {
 
         return "boards/home";
     }
-//    @GetMapping("/")
-//    public String main(Model model){
-//        model.addAttribute("lists", boardService.boardList());
-//
-//        return "boards/home";
-//    }
 
     // 글 작성 페이지 이동
     @GetMapping("/boards/new")
