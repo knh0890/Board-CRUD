@@ -79,6 +79,7 @@ public class BoardController {
         // 댓글 보여주기
         model.addAttribute("comments", commentService.commentShow(idx));
 
+        System.out.println(commentService.commentShow(idx));
         return "boards/show";
     }
 

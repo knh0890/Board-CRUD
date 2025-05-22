@@ -1,0 +1,14 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="commentForm">
+    <input type="hidden" th:value="${board.idx}"  id="commentBoardIdx" name="boardIdx">
+    <h3><label>댓글 작성</label></h3>
+    <div class="mb-3">
+        <label for="commentId" class="form-label">작성자</label>
+        <input type="text" class="form-control" id="commentId">
+    </div>
+    <div class="mb-3">
+        <label for="commentContent" class="form-label">내용</label>
+        <textarea class="form-control" id="commentContent" rows="3"></textarea>
+    </div>
+    <button type="button" class="btn btn-success" id="commentCreate">댓글 등록</button>
+</div>
