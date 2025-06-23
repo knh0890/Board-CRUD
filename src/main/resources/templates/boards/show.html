@@ -157,12 +157,8 @@
             commentEdits.forEach(function(button) {
                 button.addEventListener("click", function() {
                     const commentIdx = this.getAttribute("data-comment-idx");
-
-                    // 이 버튼의 부모들 중에서 댓글 박스를 찾음
-                    let commentBox = this.parentElement; // .text-end
-                    commentBox = commentBox.parentElement; // .p-3.mb-3...
-
-                    // 그 안의 .comment-content 찾기
+                    let commentBox = this.parentElement;
+                    commentBox = commentBox.parentElement;
                     let target = commentBox.querySelector(".comment-content");
 
                     if (this.textContent.trim() === "수정") {
