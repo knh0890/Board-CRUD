@@ -4,7 +4,7 @@
     <h3><label>댓글 작성</label></h3>
     <div class="mb-3">
         <label for="commentId" class="form-label">작성자</label>
-        <input type="text" class="form-control" id="commentId">
+        <input type="text" class="form-control" id="commentId" th:value="${id}" readonly>
     </div>
     <div class="mb-3">
         <label for="commentContent" class="form-label">내용</label>
