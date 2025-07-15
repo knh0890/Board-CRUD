@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -79,14 +78,28 @@ public class BoardService {
         return saved;
     }
 
+//    @Transactional
+//    // 게시글 수정
+//    public void update(BoardDto boardDto){
+//        // 1. dto -> entity로 변환(수정 dto를 entity로 저장)
+//        Board board = boardMapper.toEntity(boardDto);
+//        log.info(board.toString());
+//
+//        boardRepository.save(board);
+//    }
+
     @Transactional
     // 게시글 수정
     public void update(BoardDto boardDto){
-        // 1. dto -> entity로 변환(수정 dto를 entity로 저장)
-        Board board = boardMapper.toEntity(boardDto);
-        log.info(board.toString());
+        // 기존 게시글 조회
+        Board original = boardRepository.findById(boardDto.getIdx())
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글 없음"));
 
-        boardRepository.save(board);
+        // DTO → Entity 
+        Board updated = boardMapper.toEntity(boardDto);
+
+        // Entity에 수정 메서드 정의해 사용 (setter 없이 제목과 내용 수정)
+        original.update(updated);
     }
 
     @Transactional

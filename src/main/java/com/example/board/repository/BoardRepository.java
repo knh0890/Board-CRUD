@@ -22,5 +22,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
      // 내용 검색
      Page<Board> findByContentContaining(String content, Pageable pageable);
      // 작성자 검색
-    Page<Board> findByIdContaining(String id, Pageable pageable);
+     Page<Board> findByIdContaining(String id, Pageable pageable);
 }
